@@ -5,7 +5,7 @@ import os
 
 
 class FileStorage:
-    """Serializes instances to a JSON file 
+    """Serializes instances to a JSON file
        Deserializes JSON file to instances
     """
 
