@@ -9,7 +9,7 @@ from uuid import uuid4
 class BaseModel:
     """ Defines common methods for other classes"""
 
-    def __init__(self, *args,**kwargs):
+    def __init__(self, *args, **kwargs):
         """Initializing an instance of BaseModel"""
         self.id = str(uuid4())
         self.created_at = datetime.now()
