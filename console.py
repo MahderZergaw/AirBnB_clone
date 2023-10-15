@@ -20,7 +20,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def help_quit(self):
-        """"""
+        """handles help command"""
         print("{}".format("Quit command to exit to exit the program"))
 
     def emptyline(self):
