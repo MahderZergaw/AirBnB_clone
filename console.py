@@ -19,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
 
        Empty line + ENTER shouldn’t execute anything
 
-"""
+    """
     prompt = "(hbnb) "
 
     def do_quit(self, args):
