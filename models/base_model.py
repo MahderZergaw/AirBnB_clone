@@ -27,25 +27,17 @@ class BaseModel:
             storage.new(self)
 
     def __str__(self):
-        """returns a string representation of
-        [<class name>] (<self.id>) <self.__dict__>
-
-        """
+        """returns a string representation of class"""
         return "[{}] ({}) {}".format(__class__.__name__,
                                      self.id, self.__dict__)
 
     def save(self):
-        """ updates the public instance attribute
-        updated_at with the current datetime
-        """
+        """updates the public instance updated_at"""
         self.updated_at = datetime.now()
         storage.save()
 
     def to_dict(self):
-        """
-        returns a dictionary containing all keys/values
-        of _dict_ of the instance:
-        """
+        """returns a dictionary containing all keys/values"""
         obj_dict = self.__dict__.copy()
         if isinstance(obj_dict["created_at"], datetime):
             obj_dict["created_at"] = obj_dict["created_at"].isoformat()
