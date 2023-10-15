@@ -5,7 +5,6 @@ import unittest
 from models.base_model import BaseModel
 from datetime import datetime
 
-
 class TestBaseModel(unittest.TestCase):
     def setUp(self):
         """to setup test methods"""
@@ -22,12 +21,12 @@ class TestBaseModel(unittest.TestCase):
     def test_updated_at(self):
         """test if updated_at has valid datetime"""
         self.assertIsInstance(self.base_model.updated_at, datetime)
-
+    
     def test_str_(self):
         """test the string representation of BaseModel"""
         str_rep = "[{}] ({}) {}".format("BaseModel",
-                                        self.base_model.id,
-                                        self.base_model.__dict__)
+                                      self.base_model.id,
+                                      self.base_model.__dict__)
         self.assertEqual(str(self.base_model), str_rep)
 
     def test_dict_to(self):
@@ -46,6 +45,6 @@ class TestBaseModel(unittest.TestCase):
         self.base_model.save()
         self.assertNotEqual(past_time, self.base_model.updated_at)
 
-
 if __name__ == "__main__":
     unittest.main()
+    
