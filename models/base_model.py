@@ -1,16 +1,15 @@
 #!/usr/bin/python3
-""" Module contains BaseModel class that
-   defines common methods for other classes
-"""
+"""BaseModel module"""
+
 from datetime import datetime
 from models import storage
 import uuid
 
 
 class BaseModel:
-    """ Defines common methods for other classes"""
+    """Defines common methods for other classes"""
 
-    def __init__(self, args, *kwargs):
+    def __init__(self, *args, **kwargs):
         """Initializing an instance of BaseModel"""
 
         if kwargs is not None and kwargs != {}:

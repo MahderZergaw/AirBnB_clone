@@ -1,6 +1,5 @@
 #!/usr/bin/python3
-"""This module consist of a program that
- contains the entry point of the command interpreter"""
+"""This module contains command interpreter"""
 
 import cmd
 import json
