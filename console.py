@@ -8,18 +8,7 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    """class definition HBNBCommand implements:
-
-       Quit and EOF to exit the program.
-
-       help (this action is provided by default
-       by cmd but will be updated and
-       documented as we work through tasks)
-       a custom prompt: (hbnb)
-
-       Empty line + ENTER shouldn’t execute anything
-
-    """
+    """class for the console."""
     prompt = "(hbnb) "
 
     def do_quit(self, args):
