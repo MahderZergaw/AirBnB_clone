@@ -1,5 +1,3 @@
-In the file put this inside:
-
 #!/usr/bin/python3
 """module contains class amenities that inherits from BaseModel"""
 from models.base_model import BaseModel
