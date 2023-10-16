@@ -15,6 +15,7 @@ class TestFileStorage(unittest.TestCase):
     def setUp(self):
         """Setup method to initialize instances"""
         self.storage = FileStorage()
+        self.reloadStorage()
 
     def reloadStorage(self):
         """resets JSON objects created"""
@@ -25,7 +26,6 @@ class TestFileStorage(unittest.TestCase):
     def tearDown(self):
         """clean up after testing to remove JSON file created"""
         self.reloadStorage()
-        pass
 
     def test_no_args(self):
         """Tests __init__ without arguments"""
@@ -43,39 +43,25 @@ class TestFileStorage(unittest.TestCase):
                                  "_FileStorage__objects"), {})
         self.assertTrue(hasattr(FileStorage, "_FileStorage__objects"))
 
-    def test_all(self, classname):
-        """tests all() method for classname"""
-        self.reloadStorage()
-        self.assertEqual(storage.all(), {})
-        obj = storage.classes()[classname]()
+    def test_all(self):
+        """tests all() method"""
+        obj = BaseModel()
         storage.new(obj)
         key = "{}.{}".format(type(obj).__name__, obj.id)
         self.assertTrue(key in storage.all())
         self.assertEqual(storage.all()[key], obj)
 
-    def test_1_all_base_model(self):
-        """Tests all() method for BaseModel."""
-        self.test_all("BaseModel")
-
-    def test_new(self, classname):
-        """tests new() method for classname"""
-        self.reloadStorage()
-        class_ = storage.classes()[classname]
-        obj = class_()
+    def test_new(self):
+        """tests new() method"""
+        obj = BaseModel()
         storage.new(obj)
         key = "{}.{}".format(type(obj).__name__, obj.id)
         self.assertTrue(key in FileStorage._FileStorage__objects)
         self.assertEqual(FileStorage._FileStorage__objects[key], obj)
 
-    def test_new_base_model(self):
-        """Tests new() method for BaseModel"""
-        self.test_new(classname="BaseModel")
-
-    def test_save(self, classname):
-        """tests save() method for classname"""
-        self.reloadStorage()
-        class_ = storage.classes()[classname]
-        obj = class_()
+    def test_save(self):
+        """tests save() method"""
+        obj = BaseModel()
         storage.new(obj)
         key = "{}.{}".format(type(obj).__name__, obj.id)
         storage.save()
@@ -87,10 +73,6 @@ class TestFileStorage(unittest.TestCase):
                              len(json.dumps(obj_dict)))
             file.seek(0)
             self.assertEqual(json.load(file), obj_dict)
-
-    def test_save_base_model(self):
-        """Tests save() method for BaseModel"""
-        self.test_save(classname="BaseModel")
 
 
 if __name__ == "__main__":
