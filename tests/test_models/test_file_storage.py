@@ -15,7 +15,9 @@ class TestFileStorage(unittest.TestCase):
     def setUp(self):
         """Setup method to initialize instances"""
         self.storage = FileStorage()
-        self.reloadStorage()
+        if FileStorage._FileStorage__file_path is None:
+            raise ValueError("File path is None"
+                             " Please set a valid file path.")
 
     def reloadStorage(self):
         """resets JSON objects created"""
@@ -51,6 +53,12 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(key in storage.all())
         self.assertEqual(storage.all()[key], obj)
 
+    def test_all_return_empty_dict(self):
+        """Test if all() method returns an empty dictionary"""
+        self.reloadStorage()
+        result = self.storage.all()
+        self.assertEqual(result, {})
+
     def test_new(self):
         """tests new() method"""
         obj = BaseModel()
@@ -58,6 +66,15 @@ class TestFileStorage(unittest.TestCase):
         key = "{}.{}".format(type(obj).__name__, obj.id)
         self.assertTrue(key in FileStorage._FileStorage__objects)
         self.assertEqual(FileStorage._FileStorage__objects[key], obj)
+
+    def test_new_do_nothing(self):
+        """Test if new() method does nothing"""
+        self.reloadStorage()
+        initial_objects = self.storage.all()
+        obj = BaseModel()
+        self.storage.new(obj)
+        updated_objects = self.storage.all()
+        self.assertEqual(initial_objects, updated_objects)
 
     def test_save(self):
         """tests save() method"""
@@ -73,6 +90,23 @@ class TestFileStorage(unittest.TestCase):
                              len(json.dumps(obj_dict)))
             file.seek(0)
             self.assertEqual(json.load(file), obj_dict)
+
+    def test_save_do_nothing(self):
+        """Test if save() method does nothing"""
+        self.reloadStorage()
+        initial_objects = self.storage.all()
+        obj = BaseModel()
+        self.storage.save(obj)
+        updated_objects = self.storage.all()
+        self.assertEqual(initial_objects, updated_objects)
+
+    def test_reload_do_nothing(self):
+        """Test if reload() method does nothing"""
+        self.reloadStorage()
+        initial_objects = self.storage.all()
+        self.storage.reload()
+        updated_objects = self.storage.all()
+        self.assertEqual(initial_objects, updated_objects)
 
 
 if __name__ == "__main__":
